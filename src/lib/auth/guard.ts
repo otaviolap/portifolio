@@ -10,15 +10,25 @@ import { verifySession } from "./session";
  * Revalida tokenVersion no banco → permite logout global.
  */
 export async function requireUser() {
+  const user = await getUserOrNull();
+  if (!user) redirect("/login");
+  return user;
+}
+
+/**
+ * Igual ao requireUser, mas retorna null em vez de redirecionar.
+ * Para contextos sem redirect (ex.: /api/upload → responde 401).
+ */
+export async function getUserOrNull() {
   const token = (await cookies()).get("session")?.value;
   const session = await verifySession(token);
-  if (!session) redirect("/login");
+  if (!session) return null;
 
   const user = await prisma.user.findUnique({
     where: { id: session.sub },
     select: { id: true, email: true, name: true, tokenVersion: true },
   });
-  if (!user || user.tokenVersion !== session.tv) redirect("/login");
+  if (!user || user.tokenVersion !== session.tv) return null;
 
   return user;
 }
