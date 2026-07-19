@@ -1,7 +1,8 @@
 import { SitePreloader } from "@/components/motion/SitePreloader";
+import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 
-// Layout do route group público. O preloader (e, na Fase 4, o
-// SmoothScrollProvider + header/footer) vivem aqui — o (admin) fica sem GSAP.
+// Layout do route group público. Preloader + SmoothScrollProvider (Lenis+GSAP)
+// vivem aqui — o (admin) fica sem GSAP/Lenis. Header/footer entram depois.
 export default function SiteLayout({
   children,
 }: {
@@ -9,7 +10,7 @@ export default function SiteLayout({
 }) {
   return (
     <>
-      {children}
+      <SmoothScrollProvider>{children}</SmoothScrollProvider>
       <SitePreloader />
     </>
   );

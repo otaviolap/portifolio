@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "lenis/dist/lenis.css";
 
 // Placeholder de tipografia: Geist e self-hosted pelo next/font em build-time
 // (sem request a Google em runtime). Trocar por next/font/local quando as

@@ -5,6 +5,15 @@
   --foreground: #ededed;
 }
 
+html {
+  /* reserva o espaço da scrollbar sempre: o SitePreloader alterna
+     document.documentElement.style.overflow entre "hidden" e "" — sem isso,
+     a scrollbar nativa some/aparece e muda a largura da viewport nesse meio
+     tempo, deixando os pin-spacers do ScrollTrigger com a medida antiga e
+     sobrando como scroll horizontal até um resize/zoom forçar o recálculo. */
+  scrollbar-gutter: stable;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
